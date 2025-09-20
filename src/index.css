@@ -10,3 +10,17 @@
     -moz-appearance: textfield;
   }
 }
+
+/* Disable scrolling on the entire page */
+html, body, #root {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Or if you want to allow scrolling within specific containers */
+.container-with-scroll {
+  overflow: auto;
+  height: 100vh;
+}

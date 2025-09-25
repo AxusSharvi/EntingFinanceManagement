@@ -152,9 +152,9 @@ function Auth({ onAuth }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-cyan-50 p-4">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl">
-        <div className="bg-gradient-to-r from-green-500 to-teal-600 p-6 text-center">
+    <div className="min-h-screen flex items-center rounded-xl justify-center bg-gradient-to-br from-green-50 to-cyan-50 p-4">
+      <div className="w-full max-w-lg bg-white rounded-md shadow-xl">
+        <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl p-6 text-center">
           <h1 className="text-3xl font-bold text-white">FinanceTracker</h1>
           <p className="text-green-100 mt-2">Manage your finances with confidence</p>
         </div>
@@ -274,7 +274,7 @@ function Auth({ onAuth }) {
           </div>
         </div>
         
-        <div className="bg-gray-50 p-4 text-center border-t border-gray-200">
+        <div className="bg-gray-50 p-4 text-center rounded-xl border-t border-gray-200">
           <p className="text-sm text-gray-600">
             {activeTab === "login" 
               ? "Don't have an account? " 

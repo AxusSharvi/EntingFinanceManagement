@@ -6,9 +6,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
-  .no-spinners {
-    -moz-appearance: textfield;
-  }
+
 }
 
 /* Disable scrolling on the entire page */

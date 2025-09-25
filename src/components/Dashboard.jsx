@@ -218,18 +218,6 @@ function Dashboard({ user, userSalary, isLoadingSalary }) {
           )}
         </div>
 
-        {/* Quick Actions for Mobile */}
-        <div className="lg:hidden bg-white p-4 rounded-2xl shadow-sm border">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Quick Actions</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <button className="bg-green-500 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-600 transition">
-              Add Expense
-            </button>
-            <button className="bg-blue-500 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-600 transition">
-              View Reports
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -53,16 +53,14 @@ function Sidebar({ activeTab, setActiveTab, user }) {
     return (
         <>
             {/* Burger Menu Button - Mobile Only */}
+            {!isSidebarOpen && (
             <button
                 onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
+                className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-teal-600 text-white rounded-lg shadow-md hover:bg-green-600 transition"
             >
-                {isSidebarOpen ? (
-                    <XMarkIcon className="h-6 w-6" />
-                ) : (
-                    <Bars3Icon className="h-6 w-6" />
-                )}
+                <Bars3Icon className="h-6 w-6" />
             </button>
+            )}
 
             {/* Overlay for mobile when sidebar is open */}
             {isSidebarOpen && (
@@ -79,7 +77,6 @@ function Sidebar({ activeTab, setActiveTab, user }) {
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
             `}>
                 <div className="bg-white rounded-r-2xl lg:rounded-2xl h-full shadow-xl lg:shadow-md p-6 flex flex-col">
-                    {/* Close button for mobile
                     <div className="lg:hidden flex justify-end mb-4">
                         <button
                             onClick={() => setIsSidebarOpen(false)}
@@ -87,7 +84,7 @@ function Sidebar({ activeTab, setActiveTab, user }) {
                         >
                             <XMarkIcon className="h-6 w-6" />
                         </button>
-                    </div> */}
+                    </div>
 
                     <h2 className="font-bold text-2xl mt-3 text-gray-800 mb-6">Navigation</h2>
                     

@@ -62,7 +62,7 @@ function SalaryManagement({ user, onSalaryUpdate }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-8 h-[730px] overflow-y-auto">
+    <div className="bg-white rounded-2xl shadow-md p-4 h-[730px] overflow-y-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Salary Management</h2>
 
       <div className="mb-8 md:mb-10">

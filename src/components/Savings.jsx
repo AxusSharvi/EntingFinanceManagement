@@ -11,7 +11,7 @@ function Savings({ user, userSalary }) {
   const [message, setMessage] = useState("");
 
   const formatCurrency = (amount) => {
-    if (!amount) return "$0.00";
+    if (amount === null || amount === undefined) return "$0.00";
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -143,7 +143,7 @@ function Savings({ user, userSalary }) {
         setMessage("An error occurred while updating the goal.");
         console.error("Error updating goal:", error);
     }
-};
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-8 h-[700px] overflow-y-auto">
@@ -227,8 +227,8 @@ function Savings({ user, userSalary }) {
           <div className="space-y-6">
             {goals.map((goal) => (
               <div key={goal.id} className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
+                <div className="flex sm:flex-row justify-between sm:items-start mb-4">
+                  <div className="mb-2 sm:mb-0">
                     <h4 className="text-xl font-semibold text-gray-800">{goal.goal_name}</h4>
                     <p className="text-sm text-gray-500">Goal: {formatCurrency(goal.goal_amount)}</p>
                   </div>
@@ -257,19 +257,19 @@ function Savings({ user, userSalary }) {
                 </div>
 
                 {/* Update Amount Form */}
-                <div className="mt-4 flex space-x-2">
+                <div className="mt-4 flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
                     <input
-                        type="number"
-                        id={`update-amount-${goal.id}`}
-                        name="updateAmount"
-                        placeholder="Add/Subtract amount"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      type="number"
+                      id={`update-amount-${goal.id}`}
+                      name="updateAmount"
+                      placeholder="Add/Subtract amount"
+                      className="flex-1 w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                     />
                     <button
-                        onClick={() => handleUpdate(goal.id, document.getElementById(`update-amount-${goal.id}`).value)}
-                        className="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition"
+                      onClick={() => handleUpdate(goal.id, document.getElementById(`update-amount-${goal.id}`).value)}
+                      className="w-full sm:w-auto bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition"
                     >
-                        Update
+                      Update
                     </button>
                 </div>
 

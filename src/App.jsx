@@ -34,15 +34,15 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-50 to-cyan-50 overflow-hidden">
-      <div className=" mx-auto px-4 py-8 h-screen flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-50 to-cyan-50 ">
+      <div className=" mx-auto h-screen flex items-center justify-center ">
         <div className="w-full h-screen">
           {!user ? (
             <div className="flex items-center justify-center w-full h-full">
               <Auth onAuth={setUser} />
             </div>
           ) : (
-            <div className="bg-white rounded-2xl shadow-xl h-full w-full overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl h-full w-full">
               <Home user={user} />
             </div>
           )}

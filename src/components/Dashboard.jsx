@@ -17,7 +17,7 @@ function Dashboard({ user, userSalary, isLoadingSalary }) {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
   };
 
@@ -115,94 +115,121 @@ function Dashboard({ user, userSalary, isLoadingSalary }) {
   const savingsRate = userSalary > 0 ? ((totalSavings / userSalary) * 100).toFixed(0) : 0;
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-8 h-[700px] overflow-y-auto">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Financial Dashboard</h2>
+    <div className="bg-white rounded-2xl shadow-md h-[730px] overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-md p-4 mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Financial Dashboard</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-2xl shadow">
-          <h3 className="text-xl font-semibold">Total Income</h3>
-          {isLoadingSalary ? (
-            <div className="flex justify-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            </div>
-          ) : (
-            <>
-              <p className="text-4xl font-bold mt-3">
-                {userSalary ? formatCurrency(userSalary) : "No salary set"}
-              </p>
-              <p className="text-lg mt-2">
-                {userSalary ? "+12% from last month" : "Add your salary in Salary Management"}
-              </p>
-            </>
-          )}
-        </div>
-        <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-2xl shadow">
-          <h3 className="text-xl font-semibold">Total Expenses</h3>
-          {isLoading ? (
-            <div className="flex justify-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            </div>
-          ) : (
-            <>
-              <p className="text-4xl font-bold mt-3">
-                {formatCurrency(totalExpenses)}
-              </p>
-              <p className="text-lg mt-2">-5% from last month</p>
-            </>
-          )}
-        </div>
-        <div className="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-6 rounded-2xl shadow">
-          <h3 className="text-xl font-semibold">Savings Rate</h3>
-          {isLoading || userSalary === null ? (
-            <div className="flex justify-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            </div>
-          ) : (
-            <>
-              <p className="text-4xl font-bold mt-3">
-                {savingsRate}%
-              </p>
-              <p className="text-lg mt-2">
-                {userSalary ? "+3% from last month" : "Add your salary to calculate savings"}
-              </p>
-            </>
-          )}
-        </div>
-      </div>
-
-      <div className="bg-gray-50 p-6 rounded-2xl mb-8">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Recent Transactions</h3>
-        {isLoading ? (
-          <div className="flex justify-center items-center py-10">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-green-600"></div>
-          </div>
-        ) : recentExpenses.length > 0 ? (
-          <div className="space-y-4">
-            {recentExpenses.map((expense) => (
-              <div key={expense.id} className="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
-                <div>
-                  <p className="font-medium text-xl">{expense.description}</p>
-                  <p className="text-lg text-gray-500">{formatDate(expense.created_at)}</p>
-                </div>
-                <span className="text-red-600 font-semibold text-xl">-{formatCurrency(expense.amount)}</span>
+        {/* Stats Grid - Mobile: 1 column, Tablet+: 3 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+          {/* Income Card */}
+          <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-4 md:p-6 rounded-2xl shadow">
+            <h3 className="text-lg md:text-xl font-semibold">Total Income</h3>
+            {isLoadingSalary ? (
+              <div className="flex justify-center py-3 md:py-4">
+                <div className="animate-spin rounded-full h-6 w-6 md:h-8 md:w-8 border-b-2 border-white"></div>
               </div>
-            ))}
-            {/* The Salary Deposit transaction is static and can be kept or removed */}
-            <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
-              <div>
-                <p className="font-medium text-xl">Salary Deposit</p>
-                <p className="text-lg text-gray-500">
-                  {userSalary ? formatDate(new Date().toISOString()) : "---"}
+            ) : (
+              <>
+                <p className="text-2xl md:text-4xl font-bold mt-2 md:mt-3">
+                  {userSalary ? formatCurrency(userSalary) : "No salary set"}
                 </p>
+                <p className="text-sm md:text-lg mt-1 md:mt-2 opacity-90">
+                  {userSalary ? "+12% from last month" : "Add your salary in Salary Management"}
+                </p>
+              </>
+            )}
+          </div>
+
+          {/* Expenses Card */}
+          <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-4 md:p-6 rounded-2xl shadow">
+            <h3 className="text-lg md:text-xl font-semibold">Total Expenses</h3>
+            {isLoading ? (
+              <div className="flex justify-center py-3 md:py-4">
+                <div className="animate-spin rounded-full h-6 w-6 md:h-8 md:w-8 border-b-2 border-white"></div>
               </div>
-              <span className="text-green-600 font-semibold text-xl">+{userSalary ? formatCurrency(userSalary) : formatCurrency(0)}</span>
+            ) : (
+              <>
+                <p className="text-2xl md:text-4xl font-bold mt-2 md:mt-3">
+                  {formatCurrency(totalExpenses)}
+                </p>
+                <p className="text-sm md:text-lg mt-1 md:mt-2 opacity-90">-5% from last month</p>
+              </>
+            )}
+          </div>
+
+          {/* Savings Rate Card */}
+          <div className="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-4 md:p-6 rounded-2xl shadow">
+            <h3 className="text-lg md:text-xl font-semibold">Savings Rate</h3>
+            {isLoading || userSalary === null ? (
+              <div className="flex justify-center py-3 md:py-4">
+                <div className="animate-spin rounded-full h-6 w-6 md:h-8 md:w-8 border-b-2 border-white"></div>
+              </div>
+            ) : (
+              <>
+                <p className="text-2xl md:text-4xl font-bold mt-2 md:mt-3">
+                  {savingsRate}%
+                </p>
+                <p className="text-sm md:text-lg mt-1 md:mt-2 opacity-90">
+                  {userSalary ? "+3% from last month" : "Add your salary to calculate savings"}
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Recent Transactions Section */}
+        <div className="bg-gray-50 p-4 md:p-6 rounded-2xl mb-6 md:mb-8">
+          <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 md:mb-6">Recent Transactions</h3>
+          {isLoading ? (
+            <div className="flex justify-center items-center py-6 md:py-10">
+              <div className="animate-spin rounded-full h-8 w-8 md:h-10 md:w-10 border-b-2 border-green-600"></div>
             </div>
+          ) : recentExpenses.length > 0 ? (
+            <div className="space-y-3 md:space-y-4">
+              {recentExpenses.map((expense) => (
+                <div key={expense.id} className="flex justify-between items-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-base md:text-xl truncate">{expense.description}</p>
+                    <p className="text-sm md:text-lg text-gray-500">{formatDate(expense.created_at)}</p>
+                  </div>
+                  <span className="text-red-600 font-semibold text-base md:text-xl ml-2 flex-shrink-0">
+                    -{formatCurrency(expense.amount)}
+                  </span>
+                </div>
+              ))}
+              {/* Salary Deposit */}
+              <div className="flex justify-between items-center p-3 md:p-4 bg-white rounded-lg shadow-sm">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-base md:text-xl truncate">Salary Deposit</p>
+                  <p className="text-sm md:text-lg text-gray-500">
+                    {userSalary ? formatDate(new Date().toISOString()) : "---"}
+                  </p>
+                </div>
+                <span className="text-green-600 font-semibold text-base md:text-xl ml-2 flex-shrink-0">
+                  +{userSalary ? formatCurrency(userSalary) : formatCurrency(0)}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-6 md:py-10 text-gray-500">
+              <p className="text-base md:text-lg">No recent expenses found.</p>
+              <p className="text-sm md:text-base mt-1">Add some expenses to see them here.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Quick Actions for Mobile */}
+        <div className="lg:hidden bg-white p-4 rounded-2xl shadow-sm border">
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Quick Actions</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <button className="bg-green-500 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-600 transition">
+              Add Expense
+            </button>
+            <button className="bg-blue-500 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-600 transition">
+              View Reports
+            </button>
           </div>
-        ) : (
-          <div className="text-center py-10 text-gray-500">
-            <p className="text-lg">No recent expenses found.</p>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

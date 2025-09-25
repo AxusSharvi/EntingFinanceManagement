@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
 
 function Auth({ onAuth }) {
@@ -8,6 +8,27 @@ function Auth({ onAuth }) {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
+
+  // Handle Enter key press for form submission
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter' && !isLoading) {
+        if (activeTab === "login") {
+          handleLogin();
+        } else {
+          handleSignUp();
+        }
+      }
+    };
+
+    // Add event listener when component mounts
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [email, password, name, isLoading, activeTab]); // Re-run when these dependencies change
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -132,7 +153,7 @@ function Auth({ onAuth }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-cyan-50 p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl">
         <div className="bg-gradient-to-r from-green-500 to-teal-600 p-6 text-center">
           <h1 className="text-3xl font-bold text-white">FinanceTracker</h1>
           <p className="text-green-100 mt-2">Manage your finances with confidence</p>
@@ -250,26 +271,6 @@ function Auth({ onAuth }) {
               )}
             </button>
             
-            <div className="relative flex items-center justify-center my-6">
-              
-              <span className="bg-white px-3 text-sm text-gray-500">or continue with</span>
-         
-            </div>
-            
-            <div className="grid grid-cols-2 gap-3">
-              <button className="flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-lg py-2 px-4 font-medium text-gray-700 hover:bg-gray-50 transition">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
-                </svg>
-                Facebook
-              </button>
-              <button className="flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-lg py-2 px-4 font-medium text-gray-700 hover:bg-gray-50 transition">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 8.26l-7.09 3.11c-.2.08-.36.27-.36.48s.16.41.36.48l7.09 3.11c.35.14.7-.19.58-.54l-1.31-3.76 1.31-3.76c.12-.35-.23-.68-.58-.54z"/>
-                </svg>
-                Google
-              </button>
-            </div>
           </div>
         </div>
         
